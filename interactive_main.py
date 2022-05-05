@@ -11,8 +11,14 @@
 """
 from PyQt5 import QtWidgets
 import sys
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem
+
 import interactive_interface
-from interactive_ui import Ui_UiMainWindow
+from interactive_ui import UiMainWindow
+from interactive_ui_result import Ui_result_ui_dialog
 
 
 class MyWindow(QtWidgets.QMainWindow):
@@ -20,8 +26,20 @@ class MyWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MyWindow, self).__init__()
         self.myCommand = " "
-        self.ui = Ui_UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = UiMainWindow()
+        self.ui.setup_ui(self)
+
+        self.ui.upload_photo_button.clicked.connect(self.open_image)
+
+    def open_image(self):
+        img_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", "*.jpg;;*.png;;*.jpeg")
+        print(img_name)
+        pix = QPixmap(img_name)
+        item = QGraphicsPixmapItem(pix)
+        scene = QGraphicsScene()
+        scene.addItem(item)
+        self.ui.photo.setScene(scene)
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
