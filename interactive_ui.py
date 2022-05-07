@@ -9,9 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMainWindow
 
 
-class UiMainWindow(object):
+class UiMainWindow(QMainWindow):
     def __init__(self):
         self.model_label = None
         self.line = None
@@ -142,14 +143,14 @@ class UiMainWindow(object):
         self.video_table = QtWidgets.QTableWidget(ui_main_window)
         self.video_table.setGeometry(QtCore.QRect(650, 450, 650, 360))
         self.video_table.setColumnCount(3)
-        self.video_table.setRowCount(20)
+        self.video_table.setRowCount(0)
         self.video_table.setHorizontalHeaderLabels(["编号", "名称", "删除视频"])
         self.video_table.setColumnWidth(0, 65)
         self.video_table.setColumnWidth(1, 430)
         self.video_table.setColumnWidth(2, 120)
         self.video_table.verticalHeader().setVisible(False)
         self.video_table.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
-        self.video_table.setItem(0, 0, QtWidgets.QTableWidgetItem("1"))
+        """self.video_table.setItem(0, 0, QtWidgets.QTableWidgetItem("1"))
         self.video_table.setItem(0, 1, QtWidgets.QTableWidgetItem("video1.mp4"))
         delete_button = QtWidgets.QPushButton("删除")
         delete_button.setStyleSheet(
@@ -158,7 +159,7 @@ class UiMainWindow(object):
             height : 25px;
             font : 20px; '''
         )
-        self.video_table.setCellWidget(0, 2, delete_button)
+        self.video_table.setCellWidget(0, 2, delete_button)"""
 
         self.line_4 = QtWidgets.QFrame(ui_main_window)
         self.line_4.setGeometry(QtCore.QRect(400, 350, 1900, 5))

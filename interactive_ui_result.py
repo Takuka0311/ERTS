@@ -9,11 +9,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QDialog
 
 
-class Ui_result_ui_dialog(object):
+class ResultUiDialog(QDialog):
 
-    def setupUi(self, result_ui_dialog):
+    def __init__(self):
+        self.result_table = None
+
+    def setup_ui(self, result_ui_dialog):
         result_ui_dialog.setObjectName("result_ui_dialog")
         result_ui_dialog.resize(1100, 700)
         font = QtGui.QFont()
@@ -43,10 +47,10 @@ class Ui_result_ui_dialog(object):
         )
         self.result_table.setCellWidget(0, 3, check_button)
 
-        self.retranslateUi(result_ui_dialog)
+        self.retranslate_ui(result_ui_dialog)
         QtCore.QMetaObject.connectSlotsByName(result_ui_dialog)
 
-    def retranslateUi(self, result_ui_dialog):
+    def retranslate_ui(self, result_ui_dialog):
         _translate = QtCore.QCoreApplication.translate
         result_ui_dialog.setWindowTitle(_translate("result_ui_dialog", "检索结果"))
 
@@ -55,7 +59,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     result_ui_dialog = QtWidgets.QDialog()
-    ui = Ui_result_ui_dialog()
-    ui.setupUi(result_ui_dialog)
+    ui = ResultUiDialog()
+    ui.setup_ui(result_ui_dialog)
     result_ui_dialog.show()
     sys.exit(app.exec_())
