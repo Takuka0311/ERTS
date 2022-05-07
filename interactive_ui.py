@@ -11,13 +11,32 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_UiMainWindow(object):
-    def setupUi(self, UiMainWindow):
-        UiMainWindow.setObjectName("UiMainWindow")
-        UiMainWindow.resize(1400, 900)
-        UiMainWindow.setStyleSheet("background: rgb(248, 248, 248);")
+class UiMainWindow(object):
+    def __init__(self):
+        self.model_label = None
+        self.line = None
+        self.line_2 = None
+        self.line_3 = None
+        self.line_4 = None
+        self.line_5 = None
+        self.comboBox = None
+        self.upload_video_button = None
+        self.upload_photo_button = None
+        self.video_table = None
+        self.photo = None
+        self.accuracy_table = None
+        self.accuracy_label = None
+        self.check_result_button = None
+        self.search_progress_label = None
+        self.progressBar = None
+        self.start_search_button = None
 
-        self.start_search_button = QtWidgets.QPushButton(UiMainWindow)
+    def setup_ui(self, ui_main_window):
+        ui_main_window.setObjectName("ui_main_window")
+        ui_main_window.resize(1400, 900)
+        ui_main_window.setStyleSheet("background: rgb(248, 248, 248);")
+
+        self.start_search_button = QtWidgets.QPushButton(ui_main_window)
         self.start_search_button.setGeometry(QtCore.QRect(30, 20, 120, 40))
         font = QtGui.QFont()
         font.setFamily("Adobe Devanagari")
@@ -26,30 +45,30 @@ class Ui_UiMainWindow(object):
         self.start_search_button.setStyleSheet("background-color: rgb(189, 255, 204);")
         self.start_search_button.setObjectName("start_search_button")
 
-        self.progressBar = QtWidgets.QProgressBar(UiMainWindow)
+        self.progressBar = QtWidgets.QProgressBar(ui_main_window)
         self.progressBar.setGeometry(QtCore.QRect(70, 100, 410, 35))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
 
-        self.search_progress_label = QtWidgets.QLabel(UiMainWindow)
+        self.search_progress_label = QtWidgets.QLabel(ui_main_window)
         self.search_progress_label.setGeometry(QtCore.QRect(200, 150, 110, 30))
         self.search_progress_label.setObjectName("search_progress_label")
 
-        self.check_result_button = QtWidgets.QPushButton(UiMainWindow)
+        self.check_result_button = QtWidgets.QPushButton(ui_main_window)
         self.check_result_button.setGeometry(QtCore.QRect(180, 230, 110, 40))
         self.check_result_button.setStyleSheet("background-color: rgb(33, 208, 54);\n"
                                                "font: 75 9pt \"Adobe Devanagari\";\n"
                                                "color: rgb(255, 255, 255);")
         self.check_result_button.setObjectName("check_result_button")
 
-        self.accuracy_label = QtWidgets.QLabel(UiMainWindow)
+        self.accuracy_label = QtWidgets.QLabel(ui_main_window)
         self.accuracy_label.setGeometry(QtCore.QRect(30, 390, 120, 40))
         self.accuracy_label.setStyleSheet("background-color: rgb(172, 216, 255);\n"
-                                       "font: 75 10pt \"Adobe Devanagari\";\n"
-                                       "border-color: rgb(64, 134, 166);")
+                                          "font: 75 10pt \"Adobe Devanagari\";\n"
+                                          "border-color: rgb(64, 134, 166);")
         self.accuracy_label.setObjectName("accuracy_label")
 
-        self.accuracy_table = QtWidgets.QTableWidget(UiMainWindow)
+        self.accuracy_table = QtWidgets.QTableWidget(ui_main_window)
         self.accuracy_table.setGeometry(QtCore.QRect(30, 450, 520, 360))
         self.accuracy_table.setColumnCount(3)
         self.accuracy_table.setRowCount(15)
@@ -63,7 +82,7 @@ class Ui_UiMainWindow(object):
         self.accuracy_table.setItem(0, 1, QtWidgets.QTableWidgetItem("91.8%"))
         self.accuracy_table.setItem(0, 2, QtWidgets.QTableWidgetItem("记录该模型的特点"))
 
-        self.upload_photo_button = QtWidgets.QPushButton(UiMainWindow)
+        self.upload_photo_button = QtWidgets.QPushButton(ui_main_window)
         self.upload_photo_button.setGeometry(QtCore.QRect(700, 20, 120, 40))
         font = QtGui.QFont()
         font.setFamily("Adobe Devanagari")
@@ -72,55 +91,55 @@ class Ui_UiMainWindow(object):
                                                "border-color: rgb(64, 134, 166);")
         self.upload_photo_button.setObjectName("upload_photo_button")
 
-        self.photo = QtWidgets.QGraphicsView(UiMainWindow)
+        self.photo = QtWidgets.QGraphicsView(ui_main_window)
         self.photo.setGeometry(QtCore.QRect(700, 100, 120, 160))
         self.photo.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.photo.setObjectName("photo")
 
-        self.line_5 = QtWidgets.QFrame(UiMainWindow)
+        self.line_5 = QtWidgets.QFrame(ui_main_window)
         self.line_5.setGeometry(QtCore.QRect(910, 0, 5, 350))
         self.line_5.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_5.setObjectName("line_5")
 
-        self.line = QtWidgets.QFrame(UiMainWindow)
+        self.line = QtWidgets.QFrame(ui_main_window)
         self.line.setGeometry(QtCore.QRect(0, 350, 400, 5))
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
 
-        self.line_2 = QtWidgets.QFrame(UiMainWindow)
+        self.line_2 = QtWidgets.QFrame(ui_main_window)
         self.line_2.setGeometry(QtCore.QRect(600, 0, 5, 360))
         self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
 
-        self.model_label = QtWidgets.QLabel(UiMainWindow)
+        self.model_label = QtWidgets.QLabel(ui_main_window)
         self.model_label.setGeometry(QtCore.QRect(970, 20, 140, 40))
         self.model_label.setStyleSheet("background-color: rgb(172, 216, 255);\n"
                                        "font: 75 10pt \"Adobe Devanagari\";\n"
                                        "border-color: rgb(64, 134, 166);")
         self.model_label.setObjectName("model_label")
 
-        self.comboBox = QtWidgets.QComboBox(UiMainWindow)
+        self.comboBox = QtWidgets.QComboBox(ui_main_window)
         self.comboBox.setGeometry(QtCore.QRect(980, 120, 110, 40))
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("模型1")
         self.comboBox.addItem("模型2")
         self.comboBox.addItem("模型3")
 
-        self.line_3 = QtWidgets.QFrame(UiMainWindow)
+        self.line_3 = QtWidgets.QFrame(ui_main_window)
         self.line_3.setGeometry(QtCore.QRect(600, 350, 5, 1000))
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
 
-        self.upload_video_button = QtWidgets.QPushButton(UiMainWindow)
+        self.upload_video_button = QtWidgets.QPushButton(ui_main_window)
         self.upload_video_button.setGeometry(QtCore.QRect(650, 380, 120, 40))
         self.upload_video_button.setStyleSheet("background-color: rgb(172, 216, 255);")
         self.upload_video_button.setObjectName("upload_video_button")
 
-        self.video_table = QtWidgets.QTableWidget(UiMainWindow)
+        self.video_table = QtWidgets.QTableWidget(ui_main_window)
         self.video_table.setGeometry(QtCore.QRect(650, 450, 650, 360))
         self.video_table.setColumnCount(3)
         self.video_table.setRowCount(20)
@@ -141,32 +160,33 @@ class Ui_UiMainWindow(object):
         )
         self.video_table.setCellWidget(0, 2, delete_button)
 
-        self.line_4 = QtWidgets.QFrame(UiMainWindow)
+        self.line_4 = QtWidgets.QFrame(ui_main_window)
         self.line_4.setGeometry(QtCore.QRect(400, 350, 1900, 5))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
 
-        self.retranslateUi(UiMainWindow)
-        QtCore.QMetaObject.connectSlotsByName(UiMainWindow)
+        self.retranslate_ui(ui_main_window)
+        QtCore.QMetaObject.connectSlotsByName(ui_main_window)
 
-    def retranslateUi(self, UiMainWindow):
+    def retranslate_ui(self, ui_main_window):
         _translate = QtCore.QCoreApplication.translate
-        UiMainWindow.setWindowTitle(_translate("UiMainWindow", "疫情风险追踪系统"))
-        self.upload_photo_button.setText(_translate("UiMainWindow", "上传人物照片"))
-        self.model_label.setText(_translate("UiMainWindow", " 选择模型编号："))
-        self.upload_video_button.setText(_translate("UiMainWindow", "上传视频"))
-        self.start_search_button.setText(_translate("UiMainWindow", "开始检索"))
-        self.search_progress_label.setText(_translate("UiMainWindow", "检索中..."))
-        self.check_result_button.setText(_translate("UiMainWindow", "查看结果"))
-        self.accuracy_label.setText(_translate("UiMainWindow", " 模型准确率："))
+        ui_main_window.setWindowTitle(_translate("ui_main_window", "疫情风险追踪系统"))
+        self.upload_photo_button.setText(_translate("ui_main_window", "上传人物照片"))
+        self.model_label.setText(_translate("ui_main_window", " 选择模型编号："))
+        self.upload_video_button.setText(_translate("ui_main_window", "上传视频"))
+        self.start_search_button.setText(_translate("ui_main_window", "开始检索"))
+        self.search_progress_label.setText(_translate("ui_main_window", "检索中..."))
+        self.check_result_button.setText(_translate("ui_main_window", "查看结果"))
+        self.accuracy_label.setText(_translate("ui_main_window", " 模型准确率："))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
-    UiMainWindow = QtWidgets.QWidget()
-    ui = Ui_UiMainWindow()
-    ui.setupUi(UiMainWindow)
-    UiMainWindow.show()
+    main_window = QtWidgets.QWidget()
+    ui = UiMainWindow()
+    ui.setup_ui(main_window)
+    main_window.show()
     sys.exit(app.exec_())
