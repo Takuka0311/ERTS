@@ -27,7 +27,7 @@ class MyWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         self.image_path=""
-        # self.result_check = ResultUiDialog()
+        self.result_check = ResultUiDialog()
         super(MyWindow, self).__init__()
         self.myCommand = " "
         self.ui = UiMainWindow()
@@ -36,7 +36,7 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.upload_photo_button.clicked.connect(self.open_image)
         self.ui.upload_video_button.clicked.connect(self.open_video)
         self.ui.start_search_button.clicked.connect(self.start_search)
-        # self.ui.check_result_button.clicked.connect(self.check_result)
+        self.ui.check_result_button.clicked.connect(self.check_result)
 
     # 开始 搜索/训练
     def start_search(self):
@@ -47,8 +47,9 @@ class MyWindow(QtWidgets.QMainWindow):
                 video_path.append(self.ui.video_table.item(i, 1).text())
         print(image_path, video_path)
 
-    # def check_result(self):
-        # self.result_check.show()
+    def check_result(self):
+        self.result_check.show()
+        self.result_check.exec()
 
     # 选中图片
     def open_image(self):
@@ -88,7 +89,5 @@ class MyWindow(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     application = MyWindow()
-    result_check = ResultUiDialog()
-    application.ui.check_result_button.clicked.connect(result_check.show)
     application.show()
     sys.exit(app.exec())
