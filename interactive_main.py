@@ -9,6 +9,8 @@
 2、使用QtDesigner打开interactive_ui.ui进行编辑
 3、保存interactive_ui.ui并将其转换成interactive_ui.py。注：Qt转换的python文件格式不够规范，后续考虑统一进行调整
 """
+import math
+
 from PyQt5 import QtWidgets
 import sys
 
@@ -53,7 +55,7 @@ class MyWindow(QtWidgets.QMainWindow):
         img_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", "*.jpg;;*.png;;*.jpeg")
         self.image_path = img_name
         print(img_name)
-        pix = QPixmap(img_name)
+        pix = QPixmap(img_name).scaled(math.floor(QPixmap(img_name).width()*self.ui.photo.width()/QPixmap(img_name).height()), self.ui.photo.height()-25)
         item = QGraphicsPixmapItem(pix)
         scene = QGraphicsScene()
         scene.addItem(item)

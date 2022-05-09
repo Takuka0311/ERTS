@@ -84,7 +84,7 @@ class UiMainWindow(QMainWindow):
         self.accuracy_table.setItem(0, 2, QtWidgets.QTableWidgetItem("记录该模型的特点"))
 
         self.upload_photo_button = QtWidgets.QPushButton(ui_main_window)
-        self.upload_photo_button.setGeometry(QtCore.QRect(700, 20, 120, 40))
+        self.upload_photo_button.setGeometry(QtCore.QRect(690, 20, 120, 40))
         font = QtGui.QFont()
         font.setFamily("Adobe Devanagari")
         font.setPointSize(10)
@@ -93,7 +93,7 @@ class UiMainWindow(QMainWindow):
         self.upload_photo_button.setObjectName("upload_photo_button")
 
         self.photo = QtWidgets.QGraphicsView(ui_main_window)
-        self.photo.setGeometry(QtCore.QRect(700, 100, 120, 160))
+        self.photo.setGeometry(QtCore.QRect(680, 100, 150, 190))
         self.photo.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.photo.setObjectName("photo")
 
