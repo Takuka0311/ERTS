@@ -9,10 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtCore import QObject
 
 
-class UiMainWindow(QMainWindow):
+class UiMainWindow(QObject):
     def __init__(self):
         self.model_label = None
         self.line = None

@@ -14,11 +14,9 @@ import math
 from PyQt5 import QtWidgets
 import sys
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QDialog
 
-import interactive_interface
 from interactive_ui import UiMainWindow
 from interactive_ui_result import ResultUiDialog
 
@@ -26,8 +24,8 @@ from interactive_ui_result import ResultUiDialog
 class MyWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
-        self.image_path=""
-        self.result_check = ResultUiDialog()
+        self.image_path = ""
+        self.result_check = None
         super(MyWindow, self).__init__()
         self.myCommand = " "
         self.ui = UiMainWindow()
@@ -48,7 +46,7 @@ class MyWindow(QtWidgets.QMainWindow):
         print(image_path, video_path)
 
     def check_result(self):
-        self.result_check.show()
+        self.result_check = ResultDialog()
         self.result_check.exec()
 
     # 选中图片
@@ -84,6 +82,13 @@ class MyWindow(QtWidgets.QMainWindow):
     def delete_video(self, row_count):
         print("break")
         self.ui.video_table.removeRow(row_count)
+
+
+class ResultDialog(QDialog):
+    def __init__(self):
+        super(ResultDialog, self).__init__()
+        self.ui = ResultUiDialog()
+        self.ui.setup_ui(self)
 
 
 if __name__ == "__main__":
