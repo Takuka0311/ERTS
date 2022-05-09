@@ -41,8 +41,8 @@ class MyWindow(QtWidgets.QMainWindow):
         image_path = self.image_path
         video_path = []
         for i in range(self.ui.video_table.rowCount()):
-            if self.ui.video_table.item(i, 1):
-                video_path.append(self.ui.video_table.item(i, 1).text())
+            if self.ui.video_table.item(i, 0):
+                video_path.append(self.ui.video_table.item(i, 0).text())
         print(image_path, video_path)
 
     def check_result(self):
@@ -51,39 +51,46 @@ class MyWindow(QtWidgets.QMainWindow):
 
     # 选中图片
     def open_image(self):
-        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "",  "*.jpg;;*.png;;*.jpeg")
+        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "", "*.jpg;;*.png;;*.jpeg")
         self.image_path = img_name
         print(img_name)
         if img_name != "":
-            pix = QPixmap(img_name).scaled(math.floor(QPixmap(img_name).width() * self.ui.photo.width() / QPixmap(img_name).height()), self.ui.photo.height() - 25)
+            pix = QPixmap(img_name).scaled(
+                math.floor(QPixmap(img_name).width() * self.ui.photo.width() / QPixmap(img_name).height()),
+                self.ui.photo.height() - 25)
             item = QGraphicsPixmapItem(pix)
             scene = QGraphicsScene()
             scene.addItem(item)
             self.ui.photo.setScene(scene)
 
-
     # 选中视频
     def open_video(self):
         video_name, _ = QFileDialog.getOpenFileName(self, "Open video File", "*.mp4")
+        for i in range(self.ui.video_table.rowCount()):
+            if self.ui.video_table.item(i, 0):
+                if video_name == self.ui.video_table.item(i, 0).text():
+                    return
         row_count = self.ui.video_table.rowCount()
         self.ui.video_table.insertRow(row_count)
-        self.ui.video_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(row_count)))
-        self.ui.video_table.setItem(row_count, 1, QtWidgets.QTableWidgetItem(str(video_name)))
+        self.ui.video_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(video_name)))
         delete_button = QtWidgets.QPushButton(self.ui.video_table)
         delete_button.setText("删除")
-        # delete_button.clicked.connect(self.delete_video(row_count))
+        delete_button.clicked.connect(lambda: self.delete_video(video_name))
         delete_button.setStyleSheet(
             ''' text-align : center;
             background-color : LightCoral;
             height : 25px;
             font : 20px; '''
         )
-        self.ui.video_table.setCellWidget(row_count, 2, delete_button)
+        self.ui.video_table.setCellWidget(row_count, 1, delete_button)
 
     # 删除某一视频
-    def delete_video(self, row_count):
-        print("break")
-        self.ui.video_table.removeRow(row_count)
+    def delete_video(self, video_name):
+        for i in range(self.ui.video_table.rowCount()):
+            if self.ui.video_table.item(i, 0):
+                if video_name == self.ui.video_table.item(i, 0).text():
+                    self.ui.video_table.removeRow(i)
+                    break
 
 
 class ResultDialog(QDialog):
