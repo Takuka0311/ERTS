@@ -51,14 +51,16 @@ class MyWindow(QtWidgets.QMainWindow):
 
     # 选中图片
     def open_image(self):
-        img_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", "*.jpg;;*.png;;*.jpeg")
+        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "",  "*.jpg;;*.png;;*.jpeg")
         self.image_path = img_name
         print(img_name)
-        pix = QPixmap(img_name).scaled(math.floor(QPixmap(img_name).width()*self.ui.photo.width()/QPixmap(img_name).height()), self.ui.photo.height()-25)
-        item = QGraphicsPixmapItem(pix)
-        scene = QGraphicsScene()
-        scene.addItem(item)
-        self.ui.photo.setScene(scene)
+        if img_name != "":
+            pix = QPixmap(img_name).scaled(math.floor(QPixmap(img_name).width() * self.ui.photo.width() / QPixmap(img_name).height()), self.ui.photo.height() - 25)
+            item = QGraphicsPixmapItem(pix)
+            scene = QGraphicsScene()
+            scene.addItem(item)
+            self.ui.photo.setScene(scene)
+
 
     # 选中视频
     def open_video(self):
