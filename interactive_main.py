@@ -19,7 +19,7 @@ from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QD
 from interactive_ui import UiMainWindow
 from interactive_ui_result import ResultUiDialog
 
-from PIL import ImageQt, Image
+from PIL import Image
 
 import cgitb
 cgitb.enable(format='text')
@@ -47,8 +47,10 @@ class MyWindow(QtWidgets.QMainWindow):
     def start_search(self):
         image_path = self.image_path
         video_path = self.video_path
-        print(image_path, video_path)
+        model_id = self.model_id
+        print(image_path, video_path, model_id)
 
+    # 打开结果界面
     def check_result(self):
         self.result_check_button.exec()
 
