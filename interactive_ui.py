@@ -93,7 +93,7 @@ class UiMainWindow(QObject):
         self.upload_photo_button.setObjectName("upload_photo_button")
 
         self.photo = QtWidgets.QGraphicsView(ui_main_window)
-        self.photo.setGeometry(QtCore.QRect(680, 100, 150, 190))
+        self.photo.setGeometry(QtCore.QRect(660, 80, 190, 230))
         self.photo.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.photo.setObjectName("photo")
 

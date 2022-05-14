@@ -5,27 +5,34 @@
 设计ui方法：
 1、配置可视化ui设计工具
     pycharm配置pyqt5-tools开发环境的方法步骤https://www.jb51.net/article/156026.htm
-    关于安装Pyqt5-tools后找不到designer.exe的解决方法https://blog.csdn.net/wujiabao123/article/details/118271573
 2、使用QtDesigner打开interactive_ui.ui进行编辑
 3、保存interactive_ui.ui并将其转换成interactive_ui.py。注：Qt转换的python文件格式不够规范，后续考虑统一进行调整
 """
-import math
+import os
 
 from PyQt5 import QtWidgets
 import sys
 
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QDialog
+from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QDialog, QMessageBox
 
 from interactive_ui import UiMainWindow
 from interactive_ui_result import ResultUiDialog
+
+from PIL import ImageQt, Image
+
+import cgitb
+cgitb.enable(format='text')
 
 
 class MyWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         self.image_path = ""
-        self.result_check = None
+        self.video_path = []
+        self.model_id = 0
+        self.result_check_button = ResultDialog()
+
         super(MyWindow, self).__init__()
         self.myCommand = " "
         self.ui = UiMainWindow()
@@ -39,29 +46,30 @@ class MyWindow(QtWidgets.QMainWindow):
     # 开始 搜索/训练
     def start_search(self):
         image_path = self.image_path
-        video_path = []
-        for i in range(self.ui.video_table.rowCount()):
-            if self.ui.video_table.item(i, 0):
-                video_path.append(self.ui.video_table.item(i, 0).text())
+        video_path = self.video_path
         print(image_path, video_path)
 
     def check_result(self):
-        self.result_check = ResultDialog()
-        self.result_check.exec()
+        self.result_check_button.exec()
 
     # 选中图片
     def open_image(self):
-        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "", "*.jpg;;*.png;;*.jpeg")
-        self.image_path = img_name
-        print(img_name)
+        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "", "*.jpg;;*.png;;*.jpeg;;*.tiff")
         if img_name != "":
-            pix = QPixmap(img_name).scaled(
-                math.floor(QPixmap(img_name).width() * self.ui.photo.width() / QPixmap(img_name).height()),
-                self.ui.photo.height() - 25)
+            # 生成预览图
+            img = Image.open(img_name)
+            img = img.resize((self.ui.photo.width() - 5, self.ui.photo.height() - 5), Image.ANTIALIAS)
+            img.save("Preview.png", 'png')
+            # 设置预览图
+            pix = QPixmap.fromImage(QImage("Preview.png"))
             item = QGraphicsPixmapItem(pix)
             scene = QGraphicsScene()
             scene.addItem(item)
             self.ui.photo.setScene(scene)
+            self.image_path = img_name
+            # 善后
+            print("load success", img_name)
+            os.remove("Preview.png")
 
     # 选中视频
     def open_video(self):
@@ -69,7 +77,9 @@ class MyWindow(QtWidgets.QMainWindow):
         for i in range(self.ui.video_table.rowCount()):
             if self.ui.video_table.item(i, 0):
                 if video_name == self.ui.video_table.item(i, 0).text():
+                    QMessageBox.information(self, "提示", "请不要重复导入视频", QMessageBox.Yes)
                     return
+        self.video_path.append(video_name)
         row_count = self.ui.video_table.rowCount()
         self.ui.video_table.insertRow(row_count)
         self.ui.video_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(video_name)))
@@ -90,6 +100,7 @@ class MyWindow(QtWidgets.QMainWindow):
             if self.ui.video_table.item(i, 0):
                 if video_name == self.ui.video_table.item(i, 0).text():
                     self.ui.video_table.removeRow(i)
+                    self.video_path.remove(video_name)
                     break
 
 
