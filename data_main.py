@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from pickle import TRUE
 import string
 from time import monotonic
@@ -6,6 +7,7 @@ from cv2 import VideoWriter, VideoWriter_fourcc, imread, resize
 import os
 from PIL import Image
 from pathlib import Path
+import datetime
  #交互端调用时，需修改 video_path , target_img_path 和 output_path，然后调用execute函数
  #请确保output_path下没有1.jpg、2.jpg等文件
 class DataMain(object):
@@ -63,8 +65,20 @@ class DataMain(object):
         else:
             print("error")
 
+    __location = ""
+    __time = datetime.datetime.now()
+    __video_name = ""
 
-
+    #路径读取
+    def path_breakdown(self):
+        point = self.__video_name.find('_')
+        if (point == -1):
+            print("Wrong Video Name")
+            return -1
+        self.__location = self.__video_name[0:point]
+        __timestr = self.__video_name[point+1:]
+        self.__time = datetime.datetime.strptime(__timestr,"%Y%m%d%H%M%S")
+        return 0
 
     #图片压缩及保存
     def img_compressing(self,image,order):
@@ -73,10 +87,22 @@ class DataMain(object):
     	#  resize图片大小，入口参数为一个tuple，新的图片的大小
         compressed_image = image.resize((64, 128))
     	#  处理图片后存储路径，以及存储格式
-        compressed_image.save(self.output_path+str(order)+".jpg", 'JPEG')
+        saved_path = self.__output_path+self.__location+"/"+self.__time.strftime("%Y%m%d%H%M%S")+".jpg"
+        print(saved_path)
+        compressed_image.save(saved_path, 'JPEG')
+        self.__time+=datetime.timedelta(seconds = 1)
 
     #视频转图片
     def video_to_pic(self):
+        
+        #创建文件夹
+        __order = 1;
+        while os.path.exists(self.__output_path+self.__location+str(__order)+"/"):
+            __order+=1
+        self.__location += str(__order)
+        os.mkdir(self.__output_path+self.__location+"/")
+
+        #读取视频文件
         cap = cv2.VideoCapture(self.__video_path)
         cv2.waitKey(0)
         #print(self.__video_path)
@@ -92,6 +118,7 @@ class DataMain(object):
         frame_count = 0
         img_count = 0
         flag =cap.isOpened()
+        #按帧切割
         while flag:
             frame_count += 1
             flag,frame = cap.read()
@@ -115,12 +142,16 @@ class DataMain(object):
         print("视频转图片结束！")
 
     def execute(self):
+        self.__video_name = Path(self.__video_path).stem
+        if(self.path_breakdown()==-1):
+            return -1
         self.video_to_pic();
+        return 0
 
 
 
 if __name__ == '__main__':
     data_class = DataMain()
-    data_class.video_path = "C:/VScode/Result.mp4"
+    data_class.video_path = "C:/VScode/食堂_20220515085959.mp4"
     data_class.output_path = "C:/Vscode/"
     data_class.execute()
