@@ -22,6 +22,7 @@ from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QD
 from PIL import Image
 
 import cgitb
+
 cgitb.enable(format='text')
 
 
@@ -31,6 +32,7 @@ class MyWindow(QtWidgets.QMainWindow):
         self.image_path = ""
         self.video_path = []
         self.model_id = 0
+        self.result_path = ""
         self.result_check_button = ResultDialog()
 
         super(MyWindow, self).__init__()
@@ -80,18 +82,20 @@ class MyWindow(QtWidgets.QMainWindow):
         data_class.video_path = ["./test/食堂_20220515085959.mp4"]
         data_class.output_path = "./test/"
         data_class.execute()
+        self.result_path = "./test/食堂1"
         self.ui.search_progress_label.setText(QtCore.QCoreApplication.translate("ui_main_window", "检索完成"))
         self.ui.progressBar.setProperty("value", 100)
         self.ui.check_result_button.setEnabled(True)
 
     # 打开结果界面
     def check_result(self):
+        self.result_check_button.set_path(self.result_path)
         self.result_check_button.exec()
 
     # 修改模型
     def change_model(self):
-        id = self.ui.comboBox.currentText()
-        self.model_id = int(id[2:])
+        combobox_id = self.ui.comboBox.currentText()
+        self.model_id = int(combobox_id[2:])
 
     # 选中图片
     def open_image(self):
@@ -152,6 +156,34 @@ class ResultDialog(QDialog):
         super(ResultDialog, self).__init__()
         self.ui = ResultUiDialog()
         self.ui.setup_ui(self)
+
+    def set_path(self, result_path):
+        image_list = os.listdir(result_path)
+        image_list.sort(key=lambda x: int(x.split('.')[0]))
+
+        for count in range(0, len(image_list)):
+            im_name = image_list[count]
+            im_path = os.path.join(result_path, im_name)
+
+            row_count = self.ui.result_table.rowCount()
+            self.ui.result_table.insertRow(row_count)
+            self.ui.result_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(row_count)))
+            self.ui.result_table.setItem(row_count, 1, QtWidgets.QTableWidgetItem(str(im_name.split('.')[0])))
+            self.ui.result_table.setItem(row_count, 2, QtWidgets.QTableWidgetItem(str(result_path.split('/')[-1])))
+            check_button = QtWidgets.QPushButton("查看")
+            check_button.setStyleSheet(
+                ''' text-align : center;
+                background-color : rgb(181, 251, 232);
+                height : 30px;
+                font : 20px; '''
+            )
+            check_button.clicked.connect(lambda: self.check_image(im_path))
+            self.ui.result_table.setCellWidget(row_count, 3, check_button)
+
+    @staticmethod
+    def check_image(im_path):
+        image = Image.open(im_path)
+        image.show()
 
 
 if __name__ == "__main__":

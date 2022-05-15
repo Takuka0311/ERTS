@@ -28,7 +28,7 @@ class ResultUiDialog(QObject):
         self.result_table = QtWidgets.QTableWidget(result_ui_dialog)
         self.result_table.setGeometry(QtCore.QRect(30, 30, 1000, 600))
         self.result_table.setColumnCount(4)
-        self.result_table.setRowCount(20)
+        self.result_table.setRowCount(0)
         self.result_table.setHorizontalHeaderLabels(["序号", "时间", "地点", "查看视频"])
         self.result_table.setColumnWidth(0, 70)
         self.result_table.setColumnWidth(1, 240)
