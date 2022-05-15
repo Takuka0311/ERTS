@@ -8,7 +8,7 @@ import os
 from PIL import Image
 from pathlib import Path
 import datetime
-
+import random
 
 class DataMain(object):
 
@@ -21,6 +21,7 @@ class DataMain(object):
         self.__video_path = None
         self.__output_path = None
         self.__video_path = None
+        self.__recognition = list(list())
 
     @property
     def video_path_list(self):
@@ -66,6 +67,9 @@ class DataMain(object):
         else:
             print("error")
 
+    def get_recognition_result(self):
+        return self.__recognition;
+
     @property
     def target_img_path(self):
         return self.__target_image_path
@@ -90,6 +94,7 @@ class DataMain(object):
         self.__location = self.__video_name[0:point]
         __time_str = self.__video_name[point + 1:]
         self.__time = datetime.datetime.strptime(__time_str, "%Y%m%d%H%M%S")
+        
         return 0
 
     # 图片压缩及保存
@@ -102,6 +107,9 @@ class DataMain(object):
         saved_path = self.__output_path + self.__location + "/" + self.__time.strftime("%Y%m%d%H%M%S") + ".jpg"
         print(saved_path)
         compressed_image.save(saved_path, 'JPEG')
+        rand = random.randint(0,5)
+        if rand == 0:
+            self.__recognition.append([self.__time,self.__location,saved_path])
         self.__time += datetime.timedelta(seconds=1)
 
     # 视频转图片
@@ -163,6 +171,7 @@ class DataMain(object):
 
 # 交互端调用时，需修改 video_path(视频文件路径) 和 output_path(目标文件夹路径)，然后调用execute函数
 # 该模块会生成一个文件夹，储存由视频导出的图片。
+# recognition_result是一个三元组，参数分别为datetime,string和string
 # 导出的用时和视频时长差不多，测试时建议使用较短的视频。
 if __name__ == '__main__':
     data_class = DataMain()
@@ -170,3 +179,4 @@ if __name__ == '__main__':
                                   "C:/VScode/教室_20200102080001.mp4"]
     data_class.output_path = "C:/VScode/"
     data_class.execute()
+    print(data_class.get_recognition_result())
