@@ -1,0 +1,15 @@
+{
+  "num": 2,
+  "array": [
+    {
+      "id": "1",
+      "acc": "91.8%",
+      "note": "Test model"
+    },
+    {
+      "id": "2",
+      "acc": "93.6%",
+      "note": "Test model 2"
+    }
+  ]
+}

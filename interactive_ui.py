@@ -14,6 +14,7 @@ from PyQt5.QtCore import QObject
 
 class UiMainWindow(QObject):
     def __init__(self):
+        super().__init__()
         self.model_label = None
         self.line = None
         self.line_2 = None
@@ -79,9 +80,6 @@ class UiMainWindow(QObject):
         self.accuracy_table.setColumnWidth(2, 430)
         self.accuracy_table.verticalHeader().setVisible(False)
         self.accuracy_table.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
-        self.accuracy_table.setItem(0, 0, QtWidgets.QTableWidgetItem("1"))
-        self.accuracy_table.setItem(0, 1, QtWidgets.QTableWidgetItem("91.8%"))
-        self.accuracy_table.setItem(0, 2, QtWidgets.QTableWidgetItem("记录该模型的特点"))
 
         self.upload_photo_button = QtWidgets.QPushButton(ui_main_window)
         self.upload_photo_button.setGeometry(QtCore.QRect(690, 20, 120, 40))
@@ -125,9 +123,6 @@ class UiMainWindow(QObject):
         self.comboBox = QtWidgets.QComboBox(ui_main_window)
         self.comboBox.setGeometry(QtCore.QRect(980, 120, 110, 40))
         self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("模型1")
-        self.comboBox.addItem("模型2")
-        self.comboBox.addItem("模型3")
 
         self.line_3 = QtWidgets.QFrame(ui_main_window)
         self.line_3.setGeometry(QtCore.QRect(600, 350, 5, 1000))
@@ -166,7 +161,6 @@ class UiMainWindow(QObject):
         self.model_label.setText(_translate("ui_main_window", " 选择模型编号："))
         self.upload_video_button.setText(_translate("ui_main_window", "上传视频"))
         self.start_search_button.setText(_translate("ui_main_window", "开始检索"))
-        self.search_progress_label.setText(_translate("ui_main_window", "检索中..."))
         self.check_result_button.setText(_translate("ui_main_window", "查看结果"))
         self.accuracy_label.setText(_translate("ui_main_window", " 模型准确率："))
 

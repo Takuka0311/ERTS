@@ -9,9 +9,12 @@ from PIL import Image
 from pathlib import Path
 import datetime
 
+
 class DataMain(object):
 
     def __init__(self):
+        super().__init__()
+        self.__video_path_list = []
         self.__target_image_path = None
         self.__model = None
         self.__image_set_path = None
@@ -164,6 +167,6 @@ class DataMain(object):
 if __name__ == '__main__':
     data_class = DataMain()
     data_class.video_path_list = ["C:/VScode/食堂_20220515085959.mp4",
-                            "C:/VScode/教室_20200102080001.mp4"]
+                                  "C:/VScode/教室_20200102080001.mp4"]
     data_class.output_path = "C:/VScode/"
     data_class.execute()

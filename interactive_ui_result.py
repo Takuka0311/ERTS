@@ -15,6 +15,7 @@ from PyQt5.QtCore import QObject
 class ResultUiDialog(QObject):
 
     def __init__(self):
+        super().__init__()
         self.result_table = None
 
     def setup_ui(self, result_ui_dialog):
