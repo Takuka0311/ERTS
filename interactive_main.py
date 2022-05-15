@@ -72,17 +72,28 @@ class MyWindow(QtWidgets.QMainWindow):
 
     # 开始 搜索/训练
     def start_search(self):
+        # 准备识别
         image_path = self.image_path
         video_path = self.video_path
         model_id = self.model_id
-        print("search start!\nimage path:", image_path, "\nvideo_path:", video_path, "\nmodel_id:", model_id)
+        if image_path == "":
+            QMessageBox.information(self, "提示", "请选择要识别的目标图片", QMessageBox.Yes)
+            return
+        if not video_path :
+            QMessageBox.information(self, "提示", "请添加至少一个视频", QMessageBox.Yes)
+            return
 
+        # 开始识别
         self.ui.search_progress_label.setText(QtCore.QCoreApplication.translate("ui_main_window", "检索中..."))
+        print("search start!\nimage path:", image_path, "\nvideo_path:", video_path, "\nmodel_id:", model_id)
         data_class = DataMain()
         data_class.video_path = ["./test/食堂_20220515085959.mp4"]
         data_class.output_path = "./test/"
         data_class.execute()
         self.result_path = "./test/食堂1"
+
+        # 识别完成
+        QMessageBox.information(self, "提示", "识别完成！", QMessageBox.Yes)
         self.ui.search_progress_label.setText(QtCore.QCoreApplication.translate("ui_main_window", "检索完成"))
         self.ui.progressBar.setProperty("value", 100)
         self.ui.check_result_button.setEnabled(True)
