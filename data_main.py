@@ -9,9 +9,6 @@ from PIL import Image
 from pathlib import Path
 import datetime
 
-
-# 交互端调用时，需修改 video_path , target_img_path 和 output_path，然后调用execute函数
-# 请确保output_path下没有1.jpg、2.jpg等文件
 class DataMain(object):
 
     def __init__(self):
@@ -20,15 +17,16 @@ class DataMain(object):
         self.__image_set_path = None
         self.__video_path = None
         self.__output_path = None
+        self.__video_path = None
 
     @property
-    def video_path(self):
-        return self.__video_path
+    def video_path_list(self):
+        return self.__video_path_list
 
-    @video_path.setter
-    def video_path(self, value):
-        if isinstance(value, str):
-            self.__video_path = value
+    @video_path_list.setter
+    def video_path_list(self, value):
+        if isinstance(value, list):
+            self.__video_path_list = value
         else:
             print("error")
 
@@ -152,10 +150,11 @@ class DataMain(object):
         print("视频转图片结束！")
 
     def execute(self):
-        self.__video_name = Path(self.__video_path).stem
-        if self.path_breakdown() == -1:
-            return -1
-        self.video_to_pic()
+        for self.__video_path in self.__video_path_list:
+            self.__video_name = Path(self.__video_path).stem
+            if self.path_breakdown() == -1:
+                return -1
+            self.video_to_pic()
         return 0
 
 
@@ -164,6 +163,7 @@ class DataMain(object):
 # 导出的用时和视频时长差不多，测试时建议使用较短的视频。
 if __name__ == '__main__':
     data_class = DataMain()
-    data_class.video_path = "./test/食堂_20220515085959.mp4"
-    data_class.output_path = "./test/"
+    data_class.video_path_list = ["C:/VScode/食堂_20220515085959.mp4",
+                            "C:/VScode/教室_20200102080001.mp4"]
+    data_class.output_path = "C:/VScode/"
     data_class.execute()
