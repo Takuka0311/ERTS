@@ -16,6 +16,7 @@ import sys
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QDialog, QMessageBox
 
+from data_main import DataMain
 from interactive_ui import UiMainWindow
 from interactive_ui_result import ResultUiDialog
 
@@ -50,6 +51,11 @@ class MyWindow(QtWidgets.QMainWindow):
         model_id = self.model_id
         print(image_path, video_path, model_id)
 
+        data_class = DataMain()
+        data_class.image_set_path(image_path)
+        data_class.video_path = video_path
+        data_class.output_path = "C:/Vscode/"
+
     # 打开结果界面
     def check_result(self):
         self.result_check_button.exec()
@@ -81,20 +87,22 @@ class MyWindow(QtWidgets.QMainWindow):
                 if video_name == self.ui.video_table.item(i, 0).text():
                     QMessageBox.information(self, "提示", "请不要重复导入视频", QMessageBox.Yes)
                     return
-        self.video_path.append(video_name)
-        row_count = self.ui.video_table.rowCount()
-        self.ui.video_table.insertRow(row_count)
-        self.ui.video_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(video_name)))
-        delete_button = QtWidgets.QPushButton(self.ui.video_table)
-        delete_button.setText("删除")
-        delete_button.clicked.connect(lambda: self.delete_video(video_name))
-        delete_button.setStyleSheet(
-            ''' text-align : center;
-            background-color : LightCoral;
-            height : 25px;
-            font : 20px; '''
-        )
-        self.ui.video_table.setCellWidget(row_count, 1, delete_button)
+
+        if video_name != "":
+            self.video_path.append(video_name)
+            row_count = self.ui.video_table.rowCount()
+            self.ui.video_table.insertRow(row_count)
+            self.ui.video_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(video_name)))
+            delete_button = QtWidgets.QPushButton(self.ui.video_table)
+            delete_button.setText("删除")
+            delete_button.clicked.connect(lambda: self.delete_video(video_name))
+            delete_button.setStyleSheet(
+                ''' text-align : center;
+                background-color : LightCoral;
+                height : 25px;
+                font : 20px; '''
+            )
+            self.ui.video_table.setCellWidget(row_count, 1, delete_button)
 
     # 删除某一视频
     def delete_video(self, video_name):
