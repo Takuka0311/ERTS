@@ -79,7 +79,7 @@ class MyWindow(QtWidgets.QMainWindow):
         if image_path == "":
             QMessageBox.information(self, "提示", "请选择要识别的目标图片", QMessageBox.Yes)
             return
-        if not video_path :
+        if not video_path:
             QMessageBox.information(self, "提示", "请添加至少一个视频", QMessageBox.Yes)
             return
 
@@ -168,10 +168,13 @@ class ResultDialog(QDialog):
         self.ui = ResultUiDialog()
         self.ui.setup_ui(self)
 
+    # 获取结果路径，设置结果界面
     def set_path(self, result_path):
+        # 获取图片列表
         image_list = os.listdir(result_path)
         image_list.sort(key=lambda x: int(x.split('.')[0]))
 
+        # 逐张设置图片列表
         for count in range(0, len(image_list)):
             im_name = image_list[count]
             im_path = os.path.join(result_path, im_name)
@@ -191,6 +194,7 @@ class ResultDialog(QDialog):
             check_button.clicked.connect(lambda: self.check_image(im_path))
             self.ui.result_table.setCellWidget(row_count, 3, check_button)
 
+    # 显示图片
     @staticmethod
     def check_image(im_path):
         image = Image.open(im_path)
