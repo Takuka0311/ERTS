@@ -8,8 +8,7 @@ import os
 from PIL import Image
 from pathlib import Path
 import datetime
- #交互端调用时，需修改 video_path , target_img_path 和 output_path，然后调用execute函数
- #请确保output_path下没有1.jpg、2.jpg等文件
+
 class DataMain(object):
 
     def __init__(self):
@@ -149,7 +148,9 @@ class DataMain(object):
         return 0
 
 
-
+ #交互端调用时，需修改 video_path(视频文件路径) 和 output_path(目标文件夹路径)，然后调用execute函数
+ #该模块会生成一个文件夹，储存由视频导出的图片。
+ #导出的用时和视频时长差不多，测试时建议使用较短的视频。
 if __name__ == '__main__':
     data_class = DataMain()
     data_class.video_path = "C:/VScode/食堂_20220515085959.mp4"
