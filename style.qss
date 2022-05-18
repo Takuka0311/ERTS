@@ -1,0 +1,100 @@
+#ui_main_window{
+background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #FBB8FF, stop:1 #A2E7FF);
+}
+
+#start_search_button{
+    background-color: #A2E7FF;
+    color: #111010;
+    /*border: 2px solid #b7e7fd;*/
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei UI";
+}
+#start_search_button:hover{
+    border: 2px solid #d6f6ff;
+}
+
+#progressBar{
+    font-size: 16px;
+    font-family: "Microsoft YaHei UI";
+
+}
+#search_progress_label{
+    font-size: 17px;
+    font-weight: lighter;
+    font-family: "Microsoft YaHei UI"
+}
+
+#check_result_button{
+    background-color: #A2E7FF;
+    color: #111010;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei UI"
+}
+#check_result_button:hover{
+    border: 2px solid #d6f6ff;
+}
+
+#accuracy_label{
+    background: none;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: "Microsoft YaHei UI"
+}
+#self.accuracy_table{
+    /*font-size: 30px;*/
+}
+
+#upload_photo_button{
+    background-color: #A2E7FF;
+    color: #111010;
+    /*border: 2px solid #b7e7fd;*/
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei UI"
+}
+#upload_photo_button:hover{
+    border: 2px solid #d6f6ff;
+}
+
+#model_label{
+    background: none;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: "Microsoft YaHei UI"
+}
+
+#comboBox{
+    font-size: 22px;
+}
+
+#upload_video_button{
+    background-color: #A2E7FF;
+    color: #111010;
+    /*border: 2px solid #b7e7fd;*/
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei UI"
+}
+#upload_video_button:hover{
+    border: 2px solid #d6f6ff;
+}
+
+#line_3, #line, #line_2, #line_4, #line_5{
+    /*color: white;*/
+    border: 1px solid white;
+}
+#result_ui_dialog{
+    /*background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #FBB8FF, stop:1 #A2E7FF);*/
+}
+#result_table{
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #FBB8FF, stop:1 #A2E7FF);
+
+}
