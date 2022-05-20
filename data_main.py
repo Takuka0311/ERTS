@@ -174,9 +174,11 @@ class DataMain(object):
 # recognition_result是一个三元组，参数分别为datetime,string和string
 # 导出的用时和视频时长差不多，测试时建议使用较短的视频。
 if __name__ == '__main__':
+    
+    print(os.getcwd())
     data_class = DataMain()
-    data_class.video_path_list = ["C:/VScode/食堂_20220515085959.mp4",
-                                  "C:/VScode/教室_20200102080001.mp4"]
-    data_class.output_path = "C:/VScode/"
+    data_class.video_path_list = ["./test/食堂_20220515085959.mp4",
+                                 "./test/教室_20200102080001.mp4"]
+    data_class.output_path = "./test/output/"
     data_class.execute()
     print(data_class.get_recognition_result())
