@@ -84,13 +84,15 @@ class MyWindow(QtWidgets.QMainWindow):
             return
 
         # 开始识别
-        self.ui.search_progress_label.setText(QtCore.QCoreApplication.translate("ui_main_window", "检索中..."))
+        self.ui.search_progress_label.setText(QtCore.QCoreApplication.translate("ui_main_window", "检索中 . . ."))
         print("search start!\nimage path:", image_path, "\nvideo_path:", video_path, "\nmodel_id:", model_id)
         data_class = DataMain()
-        data_class.video_path = ["./test/食堂_20220515085959.mp4"]
+        # data_class.video_path_list = ["./test/食堂_20220514111801.mp4", "./test/操场_20220515111801.mp4"]
+        data_class.video_path_list = video_path
         data_class.output_path = "./test/"
         data_class.execute()
         self.result_path = "./test/食堂1"
+        # self.result_path = "./test/操场1"
 
         # 识别完成
         QMessageBox.information(self, "提示", "识别完成！", QMessageBox.Yes)
@@ -110,7 +112,7 @@ class MyWindow(QtWidgets.QMainWindow):
 
     # 选中图片
     def open_image(self):
-        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "", "*.jpg;;*.png;;*.jpeg;;*.tiff")
+        img_name, img_type = QFileDialog.getOpenFileName(self, "Open Image File", "", "*.jpg;*.png;*.jpeg;;*.png;;*.jpeg;;*.tiff")
         if img_name != "":
             # 生成预览图
             img = Image.open(img_name)
@@ -204,5 +206,6 @@ class ResultDialog(QDialog):
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     application = MyWindow()
+
     application.show()
     sys.exit(app.exec())

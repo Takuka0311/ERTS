@@ -36,42 +36,38 @@ class UiMainWindow(QObject):
     def setup_ui(self, ui_main_window):
         ui_main_window.setObjectName("ui_main_window")
         ui_main_window.resize(1400, 900)
-        ui_main_window.setStyleSheet("background: rgb(248, 248, 248);")
+        ui_main_window.setStyleSheet("background-color: #E1D1FF;")
 
         self.start_search_button = QtWidgets.QPushButton(ui_main_window)
-        self.start_search_button.setGeometry(QtCore.QRect(30, 20, 120, 40))
-        font = QtGui.QFont()
-        font.setFamily("Adobe Devanagari")
-        font.setPointSize(10)
-        self.start_search_button.setFont(font)
-        self.start_search_button.setStyleSheet("background-color: rgb(189, 255, 204);")
+        self.start_search_button.setObjectName("start_search_button")
+        self.start_search_button.setGeometry(QtCore.QRect(40, 20, 120, 40))
         self.start_search_button.setObjectName("start_search_button")
 
         self.progressBar = QtWidgets.QProgressBar(ui_main_window)
-        self.progressBar.setGeometry(QtCore.QRect(70, 100, 410, 35))
+        self.progressBar.setGeometry(QtCore.QRect(70, 110, 410, 35))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
+        self.progressBar.setStyleSheet(
+            "QProgressBar {   border: none;   border-radius: 6px;   background-color: #FFFFFF;}"
+            "QProgressBar::chunk {   background-color: #94FFE7;   width: 10px;}"
+            "QProgressBar {   border: none;   border-radius: 6px;   text-align: center;}")
 
         self.search_progress_label = QtWidgets.QLabel(ui_main_window)
-        self.search_progress_label.setGeometry(QtCore.QRect(200, 150, 110, 30))
+        self.search_progress_label.setGeometry(QtCore.QRect(230, 160, 110, 30))
         self.search_progress_label.setObjectName("search_progress_label")
 
         self.check_result_button = QtWidgets.QPushButton(ui_main_window)
-        self.check_result_button.setGeometry(QtCore.QRect(180, 230, 110, 40))
-        self.check_result_button.setStyleSheet("background-color: rgb(33, 208, 54);\n"
-                                               "font: 75 9pt \"Adobe Devanagari\";\n"
-                                               "color: rgb(255, 255, 255);")
+        self.check_result_button.setGeometry(QtCore.QRect(200, 240, 130, 40))
         self.check_result_button.setObjectName("check_result_button")
 
         self.accuracy_label = QtWidgets.QLabel(ui_main_window)
-        self.accuracy_label.setGeometry(QtCore.QRect(30, 390, 120, 40))
-        self.accuracy_label.setStyleSheet("background-color: rgb(172, 216, 255);\n"
-                                          "font: 75 10pt \"Adobe Devanagari\";\n"
-                                          "border-color: rgb(64, 134, 166);")
+        self.accuracy_label.setGeometry(QtCore.QRect(30, 380, 160, 40))
         self.accuracy_label.setObjectName("accuracy_label")
 
         self.accuracy_table = QtWidgets.QTableWidget(ui_main_window)
         self.accuracy_table.setGeometry(QtCore.QRect(30, 450, 520, 360))
+        self.accuracy_table.setObjectName("accuracy_table")
+        self.accuracy_table.setStyleSheet("font: 18px; font-family: 'Microsoft YaHei UI';")
         self.accuracy_table.setColumnCount(3)
         self.accuracy_table.setRowCount(15)
         self.accuracy_table.setHorizontalHeaderLabels(["编号", "准确率", "备注"])
@@ -82,12 +78,7 @@ class UiMainWindow(QObject):
         self.accuracy_table.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
 
         self.upload_photo_button = QtWidgets.QPushButton(ui_main_window)
-        self.upload_photo_button.setGeometry(QtCore.QRect(690, 20, 120, 40))
-        font = QtGui.QFont()
-        font.setFamily("Adobe Devanagari")
-        font.setPointSize(10)
-        self.upload_photo_button.setStyleSheet("background-color: rgb(172, 216, 255);\n"
-                                               "border-color: rgb(64, 134, 166);")
+        self.upload_photo_button.setGeometry(QtCore.QRect(670, 20, 160, 40))
         self.upload_photo_button.setObjectName("upload_photo_button")
 
         self.photo = QtWidgets.QGraphicsView(ui_main_window)
@@ -96,57 +87,55 @@ class UiMainWindow(QObject):
         self.photo.setObjectName("photo")
 
         self.line_5 = QtWidgets.QFrame(ui_main_window)
-        self.line_5.setGeometry(QtCore.QRect(910, 0, 5, 350))
+        self.line_5.setGeometry(QtCore.QRect(910, 0, 3, 350))
         self.line_5.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_5.setObjectName("line_5")
 
         self.line = QtWidgets.QFrame(ui_main_window)
-        self.line.setGeometry(QtCore.QRect(0, 350, 400, 5))
+        self.line.setGeometry(QtCore.QRect(0, 350, 600, 3))
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
 
         self.line_2 = QtWidgets.QFrame(ui_main_window)
-        self.line_2.setGeometry(QtCore.QRect(600, 0, 5, 360))
+        self.line_2.setGeometry(QtCore.QRect(600, 0, 3, 360))
         self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
 
         self.model_label = QtWidgets.QLabel(ui_main_window)
-        self.model_label.setGeometry(QtCore.QRect(970, 20, 140, 40))
-        self.model_label.setStyleSheet("background-color: rgb(172, 216, 255);\n"
-                                       "font: 75 10pt \"Adobe Devanagari\";\n"
-                                       "border-color: rgb(64, 134, 166);")
+        self.model_label.setGeometry(QtCore.QRect(960, 20, 180, 40))
         self.model_label.setObjectName("model_label")
 
         self.comboBox = QtWidgets.QComboBox(ui_main_window)
-        self.comboBox.setGeometry(QtCore.QRect(980, 120, 110, 40))
+        self.comboBox.setGeometry(QtCore.QRect(985, 120, 130, 40))
         self.comboBox.setObjectName("comboBox")
 
         self.line_3 = QtWidgets.QFrame(ui_main_window)
-        self.line_3.setGeometry(QtCore.QRect(600, 350, 5, 1000))
+        self.line_3.setGeometry(QtCore.QRect(600, 350, 3, 1000))
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
 
         self.upload_video_button = QtWidgets.QPushButton(ui_main_window)
         self.upload_video_button.setGeometry(QtCore.QRect(650, 380, 120, 40))
-        self.upload_video_button.setStyleSheet("background-color: rgb(172, 216, 255);")
         self.upload_video_button.setObjectName("upload_video_button")
 
         self.video_table = QtWidgets.QTableWidget(ui_main_window)
         self.video_table.setGeometry(QtCore.QRect(650, 450, 650, 360))
+        self.video_table.setStyleSheet("font: 18px; font-family: 'Microsoft YaHei UI';")
         self.video_table.setColumnCount(2)
         self.video_table.setRowCount(0)
         self.video_table.setHorizontalHeaderLabels(["名称", "删除视频"])
-        self.video_table.setColumnWidth(0, 430)
+        self.video_table.horizontalHeader().setStyleSheet("background-color: white;")
+        self.video_table.setColumnWidth(0, 480)
         self.video_table.setColumnWidth(1, 120)
         self.video_table.verticalHeader().setVisible(True)
         self.video_table.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
 
         self.line_4 = QtWidgets.QFrame(ui_main_window)
-        self.line_4.setGeometry(QtCore.QRect(400, 350, 1900, 5))
+        self.line_4.setGeometry(QtCore.QRect(600, 350, 1900, 3))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
@@ -165,6 +154,9 @@ class UiMainWindow(QObject):
         self.accuracy_label.setText(_translate("ui_main_window", " 模型准确率："))
 
 
+
+
+
 if __name__ == "__main__":
     import sys
 
@@ -172,5 +164,6 @@ if __name__ == "__main__":
     main_window = QtWidgets.QWidget()
     ui = UiMainWindow()
     ui.setup_ui(main_window)
+
     main_window.show()
     sys.exit(app.exec_())
