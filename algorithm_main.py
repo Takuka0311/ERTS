@@ -79,7 +79,7 @@ if __name__ == '__main__':
     #shutil.rmtree('./test/result')
     #os.mkdir('./test/result')
     algorithm_class = AlgorithmMain()
-    algorithm_class.execute()
+    #algorithm_class.execute()
     algorithm_class.target_path_test = "./test/target/"
     algorithm_class.all_path_test_list = ["./test/output/食堂1/","./test/output/教室1/","./test/output/fake/"]
     algorithm_class.execute()
