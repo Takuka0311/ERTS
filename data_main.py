@@ -9,7 +9,7 @@ from PIL import Image
 from pathlib import Path
 import datetime
 import random
-
+from algorithm_main import AlgorithmMain
 
 class DataMain(object):
 
@@ -105,12 +105,12 @@ class DataMain(object):
         # resize图片大小，入口参数为一个tuple，新的图片的大小
         compressed_image = image.resize((64, 128))
         # 处理图片后存储路径，以及存储格式
-        saved_path = self.__output_path + self.__location + "/" + self.__time.strftime("%Y%m%d%H%M%S") + ".jpg"
+        saved_path = self.__output_path + self.__location + "/" +"0001_"+ self.__time.strftime("%Y%m%d%H%M%S") + ".jpg"
         print(saved_path)
         compressed_image.save(saved_path, 'JPEG')
-        rand = random.randint(0, 5)
-        if rand == 0:
-            self.__recognition.append([self.__time, self.__location, saved_path])
+        #rand = random.randint(0, 5)
+        #if rand == 0:
+        self.__recognition.append([self.__time, self.__location, saved_path])
         self.__time += datetime.timedelta(seconds=1)
 
     # 视频转图片
@@ -167,6 +167,13 @@ class DataMain(object):
             if self.path_breakdown() == -1:
                 return -1
             self.video_to_pic()
+        # shutil.rmtree('./test/result')
+        # os.mkdir('./test/result')
+        algorithm_class = AlgorithmMain()
+        # algorithm_class.execute()
+        algorithm_class.target_path_test = "./test/target/"
+        algorithm_class.all_path_test_list = ["./test/output/食堂1/", "./test/output/教室1/", "./test/output/街道1/"]
+        algorithm_class.execute()
         return 0
 
 
@@ -177,8 +184,7 @@ class DataMain(object):
 if __name__ == '__main__':
     print(os.getcwd())
     data_class = DataMain()
-    data_class.video_path_list = ["./test/食堂_20220515085959.mp4",
-                                  "./test/教室_20200102080001.mp4"]
+    data_class.video_path_list = ["./test/街道_20220520230123.mp4"]
     data_class.output_path = "./test/output/"
     data_class.execute()
     print(data_class.get_recognition_result())
