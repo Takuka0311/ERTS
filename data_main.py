@@ -10,6 +10,7 @@ from pathlib import Path
 import datetime
 import random
 
+
 class DataMain(object):
 
     def __init__(self):
@@ -94,7 +95,7 @@ class DataMain(object):
         self.__location = self.__video_name[0:point]
         __time_str = self.__video_name[point + 1:]
         self.__time = datetime.datetime.strptime(__time_str, "%Y%m%d%H%M%S")
-        
+
         return 0
 
     # 图片压缩及保存
@@ -107,9 +108,9 @@ class DataMain(object):
         saved_path = self.__output_path + self.__location + "/" + self.__time.strftime("%Y%m%d%H%M%S") + ".jpg"
         print(saved_path)
         compressed_image.save(saved_path, 'JPEG')
-        rand = random.randint(0,5)
+        rand = random.randint(0, 5)
         if rand == 0:
-            self.__recognition.append([self.__time,self.__location,saved_path])
+            self.__recognition.append([self.__time, self.__location, saved_path])
         self.__time += datetime.timedelta(seconds=1)
 
     # 视频转图片
@@ -174,11 +175,10 @@ class DataMain(object):
 # recognition_result是一个三元组，参数分别为datetime,string和string
 # 导出的用时和视频时长差不多，测试时建议使用较短的视频。
 if __name__ == '__main__':
-    
     print(os.getcwd())
     data_class = DataMain()
     data_class.video_path_list = ["./test/食堂_20220515085959.mp4",
-                                 "./test/教室_20200102080001.mp4"]
+                                  "./test/教室_20200102080001.mp4"]
     data_class.output_path = "./test/output/"
     data_class.execute()
     print(data_class.get_recognition_result())

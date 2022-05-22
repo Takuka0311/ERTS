@@ -32,7 +32,6 @@ class MyWindow(QtWidgets.QMainWindow):
         self.image_path = ""
         self.video_path = []
         self.model_id = 0
-        self.result_path = ""
         self.result_check_button = ResultDialog()
 
         super(MyWindow, self).__init__()
@@ -84,15 +83,14 @@ class MyWindow(QtWidgets.QMainWindow):
             return
 
         # 开始识别
+        self.ui.progressBar.setProperty("value", 0)
         self.ui.search_progress_label.setText(QtCore.QCoreApplication.translate("ui_main_window", "检索中 . . ."))
         print("search start!\nimage path:", image_path, "\nvideo_path:", video_path, "\nmodel_id:", model_id)
         data_class = DataMain()
-        # data_class.video_path_list = ["./test/食堂_20220514111801.mp4", "./test/操场_20220515111801.mp4"]
         data_class.video_path_list = video_path
-        data_class.output_path = "./test/"
+        data_class.output_path = "./test/output/"
         data_class.execute()
-        self.result_path = "./test/食堂1"
-        # self.result_path = "./test/操场1"
+        self.result_check_button.set_data(data_class.get_recognition_result())
 
         # 识别完成
         QMessageBox.information(self, "提示", "识别完成！", QMessageBox.Yes)
@@ -102,7 +100,6 @@ class MyWindow(QtWidgets.QMainWindow):
 
     # 打开结果界面
     def check_result(self):
-        self.result_check_button.set_path(self.result_path)
         self.result_check_button.exec()
 
     # 修改模型
@@ -171,21 +168,18 @@ class ResultDialog(QDialog):
         self.ui.setup_ui(self)
 
     # 获取结果路径，设置结果界面
-    def set_path(self, result_path):
-        # 获取图片列表
-        image_list = os.listdir(result_path)
-        image_list.sort(key=lambda x: int(x.split('.')[0]))
+    def set_data(self, result_data):
+        self.ui.result_table.clearContents()
 
         # 逐张设置图片列表
-        for count in range(0, len(image_list)):
-            im_name = image_list[count]
-            im_path = os.path.join(result_path, im_name)
+        for count in range(0, len(result_data)):
+            im_path = result_data[count][2]
 
             row_count = self.ui.result_table.rowCount()
             self.ui.result_table.insertRow(row_count)
             self.ui.result_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(row_count)))
-            self.ui.result_table.setItem(row_count, 1, QtWidgets.QTableWidgetItem(str(im_name.split('.')[0])))
-            self.ui.result_table.setItem(row_count, 2, QtWidgets.QTableWidgetItem(str(result_path.split('/')[-1])))
+            self.ui.result_table.setItem(row_count, 1, QtWidgets.QTableWidgetItem(str(result_data[count][0])))
+            self.ui.result_table.setItem(row_count, 2, QtWidgets.QTableWidgetItem(str(result_data[count][1])))
             check_button = QtWidgets.QPushButton("查看")
             check_button.setStyleSheet(
                 ''' text-align : center;
