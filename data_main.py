@@ -9,7 +9,8 @@ from PIL import Image
 from pathlib import Path
 import datetime
 import random
-from algorithm_main import AlgorithmMain
+# from algorithm_main import AlgorithmMain
+from algorithm_reID import reid
 
 class DataMain(object):
 
@@ -169,11 +170,12 @@ class DataMain(object):
             self.video_to_pic()
         # shutil.rmtree('./test/result')
         # os.mkdir('./test/result')
-        algorithm_class = AlgorithmMain()
+        # algorithm_class = AlgorithmMain()
         # algorithm_class.execute()
-        algorithm_class.target_path_test = "./test/target/"
-        algorithm_class.all_path_test_list = ["./test/output/食堂1/", "./test/output/教室1/", "./test/output/街道1/"]
-        algorithm_class.execute()
+        # algorithm_class.target_path_test = "./test/target/"
+        # algorithm_class.all_path_test_list = ["./test/output/食堂1/", "./test/output/教室1/", "./test/output/街道1/"]
+        # algorithm_class.execute()
+        reid()
         return 0
 
 
