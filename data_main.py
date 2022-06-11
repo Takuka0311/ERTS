@@ -100,7 +100,7 @@ class DataMain(object):
         return 0
 
     # 图片压缩及保存
-    def img_compressing(self, image):
+    def img_compressing(self, image, line):
         # 待处理图片路径
         # img_path = Image.open('./images/1.png')
         # resize图片大小，入口参数为一个tuple，新的图片的大小
@@ -111,7 +111,8 @@ class DataMain(object):
         compressed_image.save(saved_path, 'JPEG')
         #rand = random.randint(0, 5)
         #if rand == 0:
-        self.__recognition.append([self.__time, self.__location, saved_path])
+        result_path = "./test/result/"
+        self.__recognition.append([self.__time, self.__location, result_path+line+".jpg"])
         self.__time += datetime.timedelta(seconds=1)
 
     # 视频转图片
@@ -140,13 +141,15 @@ class DataMain(object):
         frame_count = 0
         img_count = 0
         flag = cap.isOpened()
+        file=open('path', encoding='UTF-8')
         # 按帧切割
         while flag:
             frame_count += 1
             flag, frame = cap.read()
             if not flag:
                 break
-            if frame_count % int(fps + 1) == 0:
+            if frame_count % int(fps - 3 ) == 0:
+                line = file.readline().strip()
                 x0 = mid_x - pic_len // 2
                 x1 = mid_x + pic_len // 2
                 y0 = mid_y - pic_len
@@ -155,7 +158,7 @@ class DataMain(object):
                 img_count += 1
                 # cv2.imwrite("C:\\VScode\\"+str(img_count)+".jpg", frame)
                 image = Image.fromarray(cv2.cvtColor(crop_img, cv2.COLOR_BGR2RGB))
-                self.img_compressing(image)
+                self.img_compressing(image,line)
 
             cv2.waitKey(1)
             # cv2.imwrite(imgPath + str(frame_count).zfill(4), frame)
