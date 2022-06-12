@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QObject
+from QSSLoader import QSSLoader
 
 
 class UiMainWindow(QObject):
@@ -36,7 +37,7 @@ class UiMainWindow(QObject):
     def setup_ui(self, ui_main_window):
         ui_main_window.setObjectName("ui_main_window")
         ui_main_window.resize(1400, 900)
-        ui_main_window.setStyleSheet("background-color: #E1D1FF;")
+        # ui_main_window.setStyleSheet("background-color: #E1D1FF;")
 
         self.start_search_button = QtWidgets.QPushButton(ui_main_window)
         self.start_search_button.setObjectName("start_search_button")
@@ -154,9 +155,6 @@ class UiMainWindow(QObject):
         self.accuracy_label.setText(_translate("ui_main_window", " 模型准确率："))
 
 
-
-
-
 if __name__ == "__main__":
     import sys
 
@@ -164,6 +162,10 @@ if __name__ == "__main__":
     main_window = QtWidgets.QWidget()
     ui = UiMainWindow()
     ui.setup_ui(main_window)
+
+    style_file = 'style.qss'
+    style_sheet = QSSLoader.read_qss_file(style_file)
+    main_window.setStyleSheet(style_sheet)
 
     main_window.show()
     sys.exit(app.exec_())
