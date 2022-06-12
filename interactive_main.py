@@ -11,6 +11,7 @@
 import os
 import json
 import sys
+from functools import partial
 
 from data_main import DataMain
 from interactive_ui import UiMainWindow
@@ -172,27 +173,28 @@ class ResultDialog(QDialog):
     # 获取结果路径，设置结果界面
     def set_data(self, result_data):
         self.ui.result_table.clearContents()
+        check_button = []
+        im_path = []
 
         # 逐张设置图片列表
         for count in range(0, len(result_data)):
-            im_path = result_data[count][2]
+            im_path.append(result_data[count][2])
+            check_button.append(QtWidgets.QPushButton("查看"))
 
             row_count = self.ui.result_table.rowCount()
             self.ui.result_table.insertRow(row_count)
             self.ui.result_table.setItem(row_count, 0, QtWidgets.QTableWidgetItem(str(row_count)))
             self.ui.result_table.setItem(row_count, 1, QtWidgets.QTableWidgetItem(str(result_data[count][0])))
             self.ui.result_table.setItem(row_count, 2, QtWidgets.QTableWidgetItem(str(result_data[count][1])))
-            check_button = QtWidgets.QPushButton("查看")
-            check_button.setStyleSheet(
+
+            check_button[count].setStyleSheet(
                 ''' text-align : center;
                 background-color : rgb(181, 251, 232);
                 height : 30px;
                 font : 20px; '''
             )
-            check_button.clicked.connect(lambda: self.check_image(im_path))
-            self.ui.result_table.setCellWidget(row_count, 3, check_button)
-            print("测试path：")
-            print(im_path)
+            check_button[count].clicked.connect(partial(self.check_image,im_path[count]))
+            self.ui.result_table.setCellWidget(row_count, 3, check_button[count])
 
     # 显示图片
     @staticmethod
