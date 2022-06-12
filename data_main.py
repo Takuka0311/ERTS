@@ -168,6 +168,7 @@ class DataMain(object):
         print("视频转图片结束！")
 
     def execute(self):
+        self.__recognition = []
         file=open('path', encoding='UTF-8')
         loca = file.readline().strip()
         self.__location = loca

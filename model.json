@@ -3,13 +3,13 @@
   "array": [
     {
       "id": "1",
-      "acc": "91.8%",
-      "note": "Test model"
+      "acc": "76.8%",
+      "note": "Initializtion Camstyle model"
     },
     {
       "id": "2",
-      "acc": "93.6%",
-      "note": "Test model 2"
+      "acc": "84.6%",
+      "note": "Random Erasing Camstyle model"
     }
   ]
 }

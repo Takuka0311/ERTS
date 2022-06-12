@@ -91,6 +91,8 @@ class MyWindow(QtWidgets.QMainWindow):
         data_class.output_path = "./test/output/"
         data_class.execute()
         self.result_check_button.set_data(data_class.get_recognition_result())
+        print("测试：")
+        print(data_class.get_recognition_result())
 
         # 识别完成
         QMessageBox.information(self, "提示", "识别完成！", QMessageBox.Yes)
@@ -189,6 +191,8 @@ class ResultDialog(QDialog):
             )
             check_button.clicked.connect(lambda: self.check_image(im_path))
             self.ui.result_table.setCellWidget(row_count, 3, check_button)
+            print("测试path：")
+            print(im_path)
 
     # 显示图片
     @staticmethod

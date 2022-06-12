@@ -54,15 +54,8 @@ def reid():
     print('Top 10 images are as follow:')
     try:  # Visualize Ranking Result
         # Graphical User Interface is needed
-        fig_result = plt.figure(figsize=(16, 4))
-        ax = plt.subplot(1, 11, 1)
-        ax.axis('off')
-        imshow(query_path, 'query')
         for i in range(10):
-            ax = plt.subplot(1, 11, i + 2)
-            ax.axis('off')
             img_path, _ = image_datasets['gallery'].imgs[index[i]]
-            imshow(img_path)
             temp = img_path.rfind('\\')
             fig_name = img_path[temp + 1:]
             print(fig_name)
@@ -73,7 +66,6 @@ def reid():
             print(img_path[0])
         print('Algorithm Error')
 
-    fig_result.savefig("test/result/result.png")
 #####################################################################
 # Show result
 def imshow(path, title=None):
@@ -83,6 +75,7 @@ def imshow(path, title=None):
     if title is not None:
         plt.title(title)
     plt.pause(0.001)  # pause a bit so that plots are updated
+
 
 ######################################################################
 
@@ -188,3 +181,4 @@ if __name__ == '__main__':
         print('Algorithm Error')
 
     fig_result.savefig("test/result/result.png")
+    plt.close('all')  # 关闭所有 figure windows
